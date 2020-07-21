@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux'
-import searchImage from './image'
+import {reducer} from './reducer.js'
 
 export const rootReducer =  combineReducers({
-  searchImage
+  reducer
 })
 

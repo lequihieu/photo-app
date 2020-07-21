@@ -3,9 +3,8 @@ import { render } from 'react-dom'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import App from './components/App/App.js'
-import student from './reducers'
-
-const store = createStore(student)
+import { rootReducer } from './reducers'
+import {store} from './reducers/store'
 
 render(
   <Provider store={store}>
