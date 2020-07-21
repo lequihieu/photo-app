@@ -7,7 +7,6 @@ import {
   import fetchImageSerivce from '../services';
   
   export const fetch = (key, page) => {
-    console.log(key, page);
     return dispatch => {
       dispatch(fetchImage());
       fetchImageSerivce(key, page)

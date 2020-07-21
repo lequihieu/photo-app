@@ -1,6 +1,7 @@
 import React , { useState } from 'react'
 import { connect } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
+import {fetch} from '../../actions/fetchImage'
 
 import '../../../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './ListImage.scss';
@@ -9,24 +10,30 @@ var _ = require('lodash');
 const ListImage = () => {
  
     const [page, setPage] = useState(1);
+    const [key, setKey] = useState('');
 
     const dispatch = useDispatch()
     const data = useSelector(state => state.reducer.data)
     let list = [];
     let totalPages = 0;
-    let key = '';
+    let keyPresent = '';
 
-    if(data!=null) {
+    if(data!=null) 
+    {
         list =  _.get(data.imageData, 'results', []);
         totalPages = _.get(data.imageData, 'total_pages', 0);
-        key = data.key;
+        keyPresent = data.key;
+        
+        if(keyPresent!=key) {
+            setKey(keyPresent);
+            setPage(1);
+        }
     }
 
     const handlePageChange = (newPage) => {
 
-         setPage(newPage);
-         console.log("123");
-         dispatch(fetch('sun', 2));
+         setPage(newPage);     
+         dispatch(fetch(key, newPage));
     }
     return(
         <div>
