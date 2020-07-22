@@ -2,11 +2,13 @@ import React , { useState } from 'react'
 import { connect } from 'react-redux'
 import { useSelector, useDispatch } from 'react-redux'
 import {fetch} from '../../actions/fetchImage'
+import ModalImage from 'react-modal-image';
+import Pagination from 'react-js-pagination';
 
 import '../../../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './ListImage.scss';
 
-var _ = require('lodash');
+const _ = require('lodash');
 const ListImage = () => {
  
     const [page, setPage] = useState(1);
@@ -15,47 +17,49 @@ const ListImage = () => {
     const dispatch = useDispatch()
     const data = useSelector(state => state.reducer.data)
     let list = [];
-    let totalPages = 0;
+    let totalItem = 0;
     let keyPresent = '';
 
-    if(data!=null) 
+    if(data != null) 
     {
         list =  _.get(data.imageData, 'results', []);
-        totalPages = _.get(data.imageData, 'total_pages', 0);
+        totalItem = _.get(data.imageData, 'total');
         keyPresent = data.key;
         
-        if(keyPresent!=key) {
+        if(keyPresent !== key) {
             setKey(keyPresent);
             setPage(1);
         }
     }
 
-    const handlePageChange = (newPage) => {
+    const handlePageChange = (pageNumber) => {
 
-         setPage(newPage);     
-         dispatch(fetch(key, newPage));
+         setPage(pageNumber);     
+         dispatch(fetch(key, pageNumber));
     }
     return(
-        <div>
-            <div className="listImage">
-                {list.map((element) => {
-                    return <img className="item" alt="good" src={element.urls.thumb} width="192" height="130" />
+        <div className="image-container">
+            <div className="list-image">
+                {list.map((element, index) => {
+                    return <ModalImage
+                        small={element.urls.thumb}
+                        large={element.urls.raw}
+                        className="item"
+                        key={index}
+                        />;
                 })}
             </div>
-            <div>
-                <button
-                disabled={page <= 1}
-                onClick={() => handlePageChange(page - 1)}
-                >
-                Prev
-                </button>
-        
-                <button
-                disabled={page >= totalPages}
-                onClick={() => handlePageChange(page + 1)}
-                >
-                Next
-                </button>
+            <div className="pagination">
+
+                <Pagination
+                    itemClass="page-item"
+                    linkClass="page-link"
+                    activePage={page}
+                    itemsCountPerPage={30}
+                    totalItemsCount={totalItem}
+                    pageRangeDisplayed={20}
+                    onChange={handlePageChange}
+                    />
             </div>
         </div>
     )

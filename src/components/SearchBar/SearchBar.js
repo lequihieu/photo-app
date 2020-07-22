@@ -7,11 +7,27 @@ import '../../../node_modules/font-awesome/css/font-awesome.min.css';
 const SearchBar = () => {
 
     const dispatch = useDispatch()
-    const [input, setInput] = useState('');
+    const [term, setTerm] = useState('');
+    const search = (keyCode) => {
+        if(keyCode === 13) 
+        {
+            dispatch(fetch(term, 1))
+        }
+    }
     return (
-        <div className="search">
-            <input className="searchTerm" onChange={e=>setInput(e.target.value)} />
-            <button className="searchButton" onClick={() => dispatch(fetch(input, 1))} ><i className="fa fa-search"></i></button> 
+        <div>
+            <div className="search">
+                <input className="search-term" onChange={e=>setTerm(e.target.value)} onKeyDown={e=>search(e.keyCode)}/>
+                <button className="search-button" onClick={() => dispatch(fetch(term, 1))} ><i className="fa fa-search"></i></button>     
+            </div>
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
         </div>
     )
 }
