@@ -7,6 +7,8 @@ import Pagination from 'react-js-pagination';
 
 import '../../../node_modules/font-awesome/css/font-awesome.min.css'; 
 import './ListImage.scss';
+import ListModalImage from '../ListModalImage/ListModalImage';
+import Example from '../Pagination/Pagination';
 
 const _ = require('lodash');
 const ListImage = () => {
@@ -33,33 +35,23 @@ const ListImage = () => {
     }
 
     const handlePageChange = (pageNumber) => {
-
-         setPage(pageNumber);     
-         dispatch(fetch(key, pageNumber));
+        console.log(pageNumber);
+        setPage(pageNumber);     
+        dispatch(fetch(key, pageNumber));
     }
     return(
         <div className="image-container">
-            <div className="list-image">
-                {list.map((element, index) => {
-                    return <ModalImage
-                        small={element.urls.thumb}
-                        large={element.urls.raw}
-                        className="item"
-                        key={index}
-                        />;
-                })}
-            </div>
+            
+            <ListModalImage images={list}/>
             <div className="pagination">
 
-                <Pagination
-                    itemClass="page-item"
-                    linkClass="page-link"
-                    activePage={page}
-                    itemsCountPerPage={30}
-                    totalItemsCount={totalItem}
-                    pageRangeDisplayed={20}
-                    onChange={handlePageChange}
-                    />
+                <Example
+                    totalItemsCount = {totalItem}
+                    itemPerPage = {30}
+                    pageActive = {page}
+                    pageRangeDisplayed = {20} 
+                    onChange = {handlePageChange}
+                />
             </div>
         </div>
     )
