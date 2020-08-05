@@ -45,13 +45,13 @@ const ListImage = () => {
             <ListModalImage images={list}/>
             <div className="pagination">
 
-                <Example
+                {(list.length>0)&&<Example
                     totalItemsCount = {totalItem}
                     itemPerPage = {30}
                     pageActive = {page}
                     pageRangeDisplayed = {20} 
                     onChange = {handlePageChange}
-                />
+                />}
             </div>
         </div>
     )

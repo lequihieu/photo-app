@@ -4,60 +4,66 @@ import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 const Example = (props) => {
 
     const {totalItemsCount, itemPerPage, pageActive, pageRangeDisplayed, onChange} = props;
-    const [page, setPage] = useState(pageActive)
 
     const totalPage = Math.ceil(totalItemsCount/itemPerPage);
 
-    const firstPage = () => 
+    const previous = () => 
     {
-        setPage(1);
-        onChange(1);
+        if(pageActive === 1) return;
+        onChange(pageActive - 1);
     }
-    const lastPage = () =>
+    const next = () => 
     {
-        setPage(totalPage);
-        onChange(totalPage);
+        if(pageActive === totalPage) return;
+        onChange(pageActive + 1);
     }
-    const previous = (currentPage) => 
-    {
-        if(currentPage === 1) return;
-        setPage(currentPage - 1);
-        onChange(currentPage - 1);
+
+    let tr = [];
+    
+    if(pageActive === 1) {
+        tr[0] = 1; tr[1] = 2; tr[2] = 3;
+    } else if(pageActive === totalPage) {
+        tr[0] = totalPage - 2;
+        tr[1] = totalPage - 1;
+        tr[2] = totalPage;
+    } else {
+        tr[0] = pageActive - 1;
+        tr[1] = pageActive;
+        tr[2] = pageActive + 1;
     }
-    const next = (currentPage) => 
-    {
-        if(currentPage === totalPage) return;
-        setPage(currentPage + 1);
-        onChange(currentPage + 1);
-    }
+
+    const listPage = tr.map((page, id) => {
+        if(page===pageActive) 
+        return (
+            <PaginationItem active>
+                <PaginationLink href="#" onClick={()=>onChange(page)}>
+                {page}
+                </PaginationLink>
+            </PaginationItem>
+        )
+        else 
+        return (
+            <PaginationItem>
+                <PaginationLink href="#" onClick={()=>onChange(page)}>
+                {page}
+                </PaginationLink>
+            </PaginationItem>
+        )
+    })
     return (
         <Pagination size="lg" aria-label="Page navigation example">
         <PaginationItem>
-            <PaginationLink first href="#" onClick={firstPage}/>
+            <PaginationLink first href="#" onClick={()=> onChange(1)}/>
         </PaginationItem>
         <PaginationItem>
-            <PaginationLink previous href="#" onClick={() => { onChange(); }}/>
+            <PaginationLink previous href="#" onClick={()=>previous()}/>
+        </PaginationItem>
+        {listPage}
+        <PaginationItem>
+            <PaginationLink next href="#" onClick={()=>next()}/>
         </PaginationItem>
         <PaginationItem>
-            <PaginationLink href="#">
-            1
-            </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-            <PaginationLink href="#">
-            2
-            </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-            <PaginationLink href="#">
-            3
-            </PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-            <PaginationLink next href="#" onClick={next}/>
-        </PaginationItem>
-        <PaginationItem>
-            <PaginationLink last href="#" onClick={lastPage}/>
+            <PaginationLink last href="#" onClick={()=>onChange(totalPage)}/>
         </PaginationItem>
         </Pagination>
   );

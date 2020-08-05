@@ -9,7 +9,37 @@
 }
 .item {
     
-    margin: 5px;
+    //margin: 5px;
     width: 200px;
     height: 130px;
 }
+
+// .container img { 
+//     width: 200px; 
+//     height: 130px; 
+// } 
+  
+.wrap { 
+    position: relative; 
+    width: 200px; 
+    height: 130px; 
+    margin: 5px;
+} 
+  
+.overlay { 
+    position: absolute; 
+    transition: all 0.3s ease; 
+    opacity: 0; 
+    background-color: #9bcd9b; 
+} 
+  
+.wrap:hover .overlay { 
+    opacity: 0.5; 
+} 
+  
+.overlayFade { 
+    height: 130px; 
+    width: 200px; 
+    top: 0; 
+    background-color: #9bcd9b; 
+} 
