@@ -7,7 +7,7 @@ import Navbar from '../Navbar'
 import Landing from '../Landing'
 import Login from '../Login'
 import Register from '../Register'
-import Profile from '../Profile'
+import Profile from '../Profile/Profile'
 import Search from '../Search'
 const App = () => (
   // <div>  

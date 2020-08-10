@@ -55,10 +55,10 @@ class ImageCarousel extends React.Component {
         <CarouselItem
           onExiting={() => this.setAnimating(true)}
           onExited={() => this.setAnimating(false)}
-          key={image.id}
+          key={image.name}
         >
           <div className="d-flex justify-content-center">
-            <img src={image.urls.regular} alt="hello" className="img-fluid" />
+            <img src={image.regular} alt="hello" className="img-fluid" />
           </div>
         </CarouselItem>
       );

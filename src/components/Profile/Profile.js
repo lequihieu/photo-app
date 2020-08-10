@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
-
+import axios from 'axios'
+import './Profile.scss'
+import ListModalImage from '../ListModalImage/ListModalImage';
 class Profile extends Component {
   constructor() {
     super()
@@ -8,18 +10,34 @@ class Profile extends Component {
       first_name: '',
       last_name: '',
       email: '',
-      errors: {}
+      errors: {},
+      id: null,
+      list: []
     }
   }
-
+  getData = async(user_id) => {
+    let res = await axios.get('http://localhost:5000/images/list', {
+      params: {
+        user: user_id
+      }
+    })
+    this.setState({
+      list: res.data
+    })
+  }
   componentDidMount() {
     const token = localStorage.usertoken
     const decoded = jwt_decode(token)
+    
+    this.getData(decoded.id);
+
     this.setState({
       first_name: decoded.first_name,
       last_name: decoded.last_name,
-      email: decoded.email
+      email: decoded.email,
+      id: decoded.id
     })
+
   }
 
   render() {
@@ -45,6 +63,10 @@ class Profile extends Component {
               </tr>
             </tbody>
           </table>
+        </div>
+        {console.log(this.state.list, this.state.first_name, "render")}
+        <div className="list-image-user">
+            <ListModalImage images={this.state.list}/>
         </div>
       </div>
     )

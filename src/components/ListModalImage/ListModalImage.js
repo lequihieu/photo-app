@@ -1,20 +1,11 @@
 import React, { useState } from 'react'
 import jwt_decode from 'jwt-decode'
 import ImageCarousel from '../ImageCarousel/ImageCarousel'
-import PropTypes from 'prop-types'
 import { add } from '../UserFunctions'
 import {
     Modal,
     ModalHeader,
-    ModalFooter,
     ModalBody,
-    Col,
-    Row,
-    Container,
-    Card,
-    CardImgOverlay,
-    CardImg,
-    Button
   } from "reactstrap";
 import './ListModalImage.scss'
 
@@ -23,7 +14,6 @@ const ListModalImage = props => {
     const { images } = props;  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [prevImages, setPrevImages] = useState([]);
-    const [imageToShow, setImageToShow] = useState(0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     if(images !== prevImages) 
@@ -43,26 +33,26 @@ const ListModalImage = props => {
     }
     const addElement = (element) => {
 
+        alert("Added");
         const token = localStorage.usertoken
         const decoded = jwt_decode(token)
-        const image = {url: element.urls.thumb, name: element.id, user: decoded.id} 
+        const image = {thumb: element.thumb, name: element.name, user: decoded.id, regular: element.regular} 
         console.log(image);
         add(image);
     } 
     return (
-        <div>
+        <div className="container">
             <div className="list-image">
                 {prevImages.map((element, index) => {
                     return (
-                        <div class="wrap"> 
+                        <div className="wrap" key={element.name}> 
                             <img
-                                src={element.urls.thumb}
+                                src={element.thumb}
                                 className="item"
-                                key={index}
                                 alt="hello"
                                 onClick={() => showModalImage(index)}
                             />
-                            <div class="overlay overlayFade">
+                            <div className="overlay overlayFade">
                                 <button onClick={() => addElement(element)}>ADD</button><br/>
                                 <button onClick={() => showModalImage(index)}>ON SCREEN</button>
                             </div> 

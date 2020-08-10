@@ -18,13 +18,18 @@ const ListImage = () => {
 
     const dispatch = useDispatch()
     const data = useSelector(state => state.reducer.data)
+    let res = [];
     let list = [];
+    let listName = [];
     let totalItem = 0;
     let keyPresent = '';
+    let imageId = '';
 
     if(data != null) 
     {
-        list =  _.get(data.imageData, 'results', []);
+        list = _.map(_.get(data.imageData, 'results', []), 'urls');
+        listName = _.map(_.get(data.imageData, 'results', []), 'id');
+        list.forEach((element, index) => element.name = listName[index]);
         totalItem = _.get(data.imageData, 'total');
         keyPresent = data.key;
         

@@ -31,11 +31,27 @@ export const login = user => {
 export const add = image => {
   return axios
     .post('http://localhost:5000/images/add', {
-      url: image.url,
+      thumb: image.thumb,
+      regular: image.regular,
       name: image.name,
       user: image.user
     })
     .then(response => {
       console.log(response.data)
     })
+}
+
+export const list = async user_id => {
+  let data;
+  console.log(user_id, "asyncaaaaa");
+   await axios.get('http://localhost:5000/images/list', {
+      params: {
+        user: user_id
+      }
+    })
+    .then(result => {
+      data = result
+      console.log(data, "hello")
+    })
+  return data;  
 }

@@ -21,13 +21,13 @@ const SearchBar = () => {
                 <input className="search-term" onChange={e=>setTerm(e.target.value)} onKeyDown={e=>search(e.keyCode)}/>
                 <button className="search-button" onClick={() => dispatch(fetch(term, 1))} ><i className="fa fa-search"></i></button>     
             </div>
-            {loading ? <div class="sk-chase">
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
-                <div class="sk-chase-dot"></div>
+            {loading ? <div className="sk-chase">
+                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot"></div>
+                <div className="sk-chase-dot"></div>
             </div> : <div></div>}
         </div>
     )

@@ -34,20 +34,24 @@ const Example = (props) => {
 
     const listPage = tr.map((page, id) => {
         if(page===pageActive) 
-        return (
-            <PaginationItem active>
-                <PaginationLink href="#" onClick={()=>onChange(page)}>
-                {page}
-                </PaginationLink>
-            </PaginationItem>
+        return ( 
+            <div key={id}>
+                <PaginationItem active>
+                    <PaginationLink href="#" onClick={()=>onChange(page)}>
+                    {page}
+                    </PaginationLink>
+                </PaginationItem>
+            </div>
         )
         else 
         return (
-            <PaginationItem>
-                <PaginationLink href="#" onClick={()=>onChange(page)}>
-                {page}
-                </PaginationLink>
-            </PaginationItem>
+            <div key={id}>
+                <PaginationItem>
+                    <PaginationLink href="#" onClick={()=>onChange(page)}>
+                    {page}
+                    </PaginationLink>
+                </PaginationItem>
+            </div>
         )
     })
     return (
